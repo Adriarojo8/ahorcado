@@ -68,6 +68,22 @@ def showWord(array):
 
     return word
 
+def arrayToString(array):
+
+    string = ""
+
+    for i in array:
+        string += i + " "
+
+    return string
+
+def checkIfLetterUsed(array,letter):
+
+    for i in array:
+        if i == letter:
+            return True
+    return False
+
 def startGame(word, lword, wordArray):
 
     print("WELCOME TO HANGED: THE GAME!")
@@ -79,9 +95,21 @@ def startGame(word, lword, wordArray):
     wordFound = False
     letter = ""
     wordToShow = ""
+    lettersArray = []
+    lettersUsed = ""
 
     while(mistakes < maxMistakes and not wordFound):
         letter = input("Introduce a letter: ")
+        #lettersArray.append(letter)
+        #if(checkIfLetterUsed(letter)):
+        while(checkIfLetterUsed(lettersArray,letter)):
+            print("You've used this letter before!")
+            print("Choose another please")
+            print("remember you used this letters: ")
+            lettersUsed = arrayToString(lettersArray)
+            print(lettersUsed)
+            letter = input("Introduce a letter: ")
+        lettersArray.append(letter)
         print("You've choosed " , letter)
         if (checkIfContains(letter,word)):
             print("Nice, you're right!")
@@ -93,6 +121,9 @@ def startGame(word, lword, wordArray):
         wordToShow = showWord(wordArray)
         print("You are at this point:")
         print(wordToShow)
+        print("You used these letters: ")
+        lettersUsed = arrayToString(lettersArray)
+        print(lettersUsed)
 
         if(checkIfFound(wordArray)):
             wordFound = True
@@ -111,6 +142,9 @@ def startGame(word, lword, wordArray):
 ahorcado()
 
 
-#añadir cola para saber que letras se han intentado, printar esa cola a cada ronda para no repetir
+#añadir cola para saber que letras se han intentado, printar esa cola a cada ronda para no repetir - DONE
 #tambien habra que tener en cuenta que no se puedan repetir letras ya dichas y que no esten en la cola, es decir, las acertadas
 #añadir espacio entre jugadas, texto en color...
+#a la cola para mostrar las letras usadas, hay que añadir la modificacion de que si la letra se ha acertado, no se muestre
+#en la lista pero que si sea añadida a la cola, para evitar que los usuarios retrasados se equivoquen
+#añadir separacion entre jugadas para evitar confusion
